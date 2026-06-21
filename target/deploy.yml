@@ -1,0 +1,15 @@
+---
+- name: Deploy HelloWorld App
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Copy JAR file
+      copy:
+        src: target/gana-0.0.1-SNAPSHOT.jar
+        dest: /opt/myapp/gana.jar
+        mode: '0755'
+
+    - name: Start application
+      shell: |
+        nohup java -jar /opt/myapp/gana.jar > /opt/myapp/app.log 2>&1 &
